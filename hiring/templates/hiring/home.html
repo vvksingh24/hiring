@@ -1,0 +1,67 @@
+{% load staticfiles %}
+<!Doctype HTML>
+<html>
+	<head>
+		<title>{{ title }}</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+		<link href='{% static "img/favicon.png" %}' rel='shortcut icon'>
+	</head>
+	<body>
+		<nav class='navbar navbar-inverse navbar-fixed-top'>
+			<div class='container'>
+				<div class='clearfix'>
+					<div class='col-md-1'></div>
+					<div class='col-md-10 col-sm-12 col-xs-12'>
+						<div class='navbar-header headerlink'>
+							<button aria-expanded='false' class='navbar-toggle collapsed' data-target='#header-navbar-collapse' data-toggle='collapse' type='button'>
+								<span class='sr-only'>Toggle navigation</span>
+								<span class='icon-bar'></span>
+								<span class='icon-bar'></span>
+								<span class='icon-bar'></span>
+							</button>
+							<a class='navbar-brand' href='{% url "hiring:home" %}'>
+								<img alt="Startxlabslogo" src="{% static 'img/startxlabslogo.png' %}" />
+							</a>
+						</div>
+						<div aria-expanded='false' class='navbar-collapse collapse' id='header-navbar-collapse' style='height: 1px;'>
+							<ul class='nav navbar-nav navbar-right'>
+								<li ><a  href='{% url "hiring:home" %}'>Home</a></li>
+								<li ><a href="{% url 'hiring:events'%}">Events</a></li>
+								{% if request.user.is_authenticated %}
+								<li>Hello {{ request.user }}</li>
+								{% else %}
+								<li ><a href="{% url 'hiring:login' %}">Sign Up/Log In</a></li>
+								{% endif %}
+							</ul>
+						</div>
+					</div>
+				<div class='col-md-1'></div>
+				</div>
+			</div>
+		</nav>
+		{% block content %}
+		{% endblock %}
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script type="text/javascript" src="{% static 'js/bootstrap.min.js'%}"></script>
+		<script type="text/javascript">
+			$(document).keydown(function(event)
+			{
+			    if(event.keyCode==123){  //Prevent from f12
+			    return false;
+			   }
+				else if(event.ctrlKey && event.shiftKey && event.keyCode==73){        
+				      return false;  //Prevent from ctrl+shift+i
+				   }
+				   
+				else if(event.keyCode==116){ //Prevent from f5
+				    return false;
+				   }
+				else if(event.keyCode==122){ //Prevent from f11
+				    return false;
+				   }   
+			});
+</script>
+	</body>
+</html>

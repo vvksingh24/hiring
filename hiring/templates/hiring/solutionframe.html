@@ -1,0 +1,72 @@
+{% load staticfiles %}
+{% load hiring_extras %}
+<!Doctype HTML>
+<html>
+	<head>
+		<title>{{ title }}</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+		<link href='{% static "img/favicon.png" %}' rel='shortcut icon'>
+	</head>
+	<script type="text/javascript">
+	$('textarea').keypress(function(event) {
+	   if (event.which == 13) {
+	      event.preventDefault();
+	      var s = $(this).val();
+	      $(this).val(s+"\n");
+	   }
+	});​
+	</script>
+
+<body>
+<h1>{{ question.question }}</h1>
+<form action="" method='POST' enctype='multipart/form-data' >
+{% csrf_token %}
+<ul>
+	{% if question.subjective %}
+	<p align='left'>Answer:</p><textarea name="answer" style="margin: 0px; width: 700px; height: 500px;">
+	{% if data  %} {{data}} {% endif %}
+</textarea><br/>
+	{% else %}
+	{% for choice in question.answers.all %}
+	<p>{{ forloop.counter }}.<input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ forloop.counter }}" {% if forloop.counter == data|add:0  %} checked="checked" {% endif %}/>
+    <label for="choice{{ forloop.counter }}">{{ choice.choice }}</label><br />
+	{% endfor %}
+	{% endif %}
+	</p>
+</ul>
+	<div align='right'>
+		{% for i in test.question.all %}
+		{% if i.id == question.id %}
+		<button type="button"><a href="{% url 'hiring:solution' abc|previous:i.id test.id %}" >Previous</a></button>{% endif %}
+		{% endfor %}
+		<input type='submit' value='save'>
+		{% for i in test.question.all %}
+		{% if i.id == question.id %}
+		<button type="button"><a href="{% url 'hiring:solution' abc|next:i.id test.id %}" id='next'>Next</a></button>{% endif %}
+		{% endfor %}
+	</div>
+</form>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script type="text/javascript" src="{% static 'js/bootstrap.min.js'%}"></script>
+		<script type="text/javascript">
+			$(document).keydown(function(event)
+			{
+			    if(event.keyCode==123){  //Prevent from f12
+			    return false;
+			   }
+				else if(event.ctrlKey && event.shiftKey && event.keyCode==73){        
+				      return false;  //Prevent from ctrl+shift+i
+				   }
+				   
+				else if(event.keyCode==116){ //Prevent from f5
+				    return false;
+				   }
+				else if(event.keyCode==122){ //Prevent from f11
+				    return false;
+				   }   
+			});;
+	</script>
+</body>
+</html>

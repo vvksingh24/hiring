@@ -1,0 +1,17 @@
+<p style=" font-weight: bold;">
+	Details Regarding Test<br/>
+	<input type="checkbox" id="termsChkbx " onclick="change_button(this,'sub1')"/>
+	I have read and agree to the terms and conditions
+</p>
+<p><a href="{% url 'hiring:test' exam.pk %}"><input type="submit" name="submit" value="I Understand" id="sub1" disabled="disabled"/></a></p>
+
+<script type = "text/javascript">
+function change_button(checkbx,button_id) {
+    var btn = document.getElementById(button_id);
+    if (checkbx.checked == true) {
+        btn.disabled = "";
+    } else {
+        btn.disabled = "disabled";
+    }
+}
+</script>

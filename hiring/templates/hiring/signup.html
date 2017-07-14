@@ -1,0 +1,61 @@
+{% extends 'hiring/home.html' %}
+{% block content %}
+<style type="text/css">
+body{
+    background-color: #525252;
+}
+.centered-form{
+	margin-top: 60px;
+}
+
+.centered-form .panel{
+	background: rgba(255, 255, 255, 0.8);
+	box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
+}
+</style>
+<div class="container">
+    <div class="row centered-form">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+        	<div class="panel panel-default">
+        		<div class="panel-heading">
+			    	<h3 class="panel-title">Please Sign Up Here</h3>
+			 		</div>
+			 		<div class="panel-body">
+			    	<form role="form" method='POST' action="">
+			    		{% csrf_token %}
+			    		
+		    			<div class="form-group">
+		    				{{ user_form.username.errors }}
+		    				<input type="text" name="username" id='{{ user_form.username }}' class="form-control input-sm" placeholder="Username">
+		    			</div>
+		    		
+		    		{{ user_form.email.errors }}
+			    		<div class="form-group">
+			    			<input type="email" name='email' id='{{ user_form.email }}' class="form-control input-sm" placeholder="Email Address">
+			    		</div>
+		    		
+			    		{% for error in user_form.non_field_errors %}
+    						{{error}}
+						{% endfor %}
+			    		<div class="row">
+			    			<div class="col-xs-6 col-sm-6 col-md-6">
+			    				{{ user_form.password1.errors }}
+			    				<div class="form-group">
+			    					<input type="password" name='password1' id='{{ user_form.password1 }}' class="form-control input-sm" placeholder="Password">
+			    				</div>
+			    			</div>
+			    			<div class="col-xs-6 col-sm-6 col-md-6">
+			    				{{ user_form.password2.errors }}
+			    				<div class="form-group">
+			    					<input type="password" name='password2' id='{{ user_form.password2 }}' class="form-control input-sm" placeholder="Confirm Password">
+			    				</div>
+			    			</div>
+			    		</div>
+			    		<input type="submit" value="Register" class="btn btn-info btn-block">
+			    	</form>
+			    </div>
+	    	</div>
+    	</div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,12 @@
+<!Doctype HTML>
+<html>
+	<head>
+	</head>
+	<body>
+		{% for q in test.question.all %}
+		<ul>
+			<li><a href="{% url 'hiring:solution' q.pk test.id %}"  target="solution">{{ q.question }}</a></li>
+		</ul>
+		{% endfor %}
+	</body>
+</html>

@@ -1,0 +1,14 @@
+<p>{{ events.name }}</p>
+<p>{{ events.vacancies }}</p>
+<p>{{ events.type_job }}</p>
+<p>{{ events.desc }}</p>
+<p>{{ events.time }}</p>
+{% if exam.registered %}
+{% if ( exam.start_date == date  and time >= exam.start_time and end_time >= time ) or (time==time)   %}
+	<button name='button' type='button'><a href="{% url 'hiring:agree' pk=exam.id %}">Start Now</a></button>
+{% else %}
+<p>Registered</p>
+{% endif %}
+{% else %}
+<button name="button" type="button"><a href="{% url 'hiring:calender' pk=events.id %}">Register</a></button> 
+{% endif %}

@@ -1,0 +1,6 @@
+{{ request.user }}
+<ul>
+	{% for event in all_events %}
+		<li> <a href="{% url 'hiring:event' event.id %}">{{ event.name }}</a></li>
+	{% endfor %}
+</ul>
